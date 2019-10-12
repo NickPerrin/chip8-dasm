@@ -23,15 +23,16 @@ fn main() {
         process::exit(1);
     });
 
-    if let Err(error) = read_file(file) {
-        eprintln!("Unable to disassemble {} | {}", file, error.to_string());
+    if let Ok(bytes) = read_file(file) {
+        println!("file contents\n {:X?}", bytes);
+    } else {
+        eprintln!("Unable to disassemble open file: {}", file);
     }
 }
 
-fn read_file(filename: &str) -> std::io::Result<()> {
+fn read_file(filename: &str) -> std::io::Result<Vec<u8>> {
     let mut f = File::open(&filename)?;
-    let mut data = String::new();
-    f.read_to_string(&mut data)?;
-    println!("file contents\n {}", data);
-    Ok(())
+    let mut data = Vec::<u8>::new();
+    f.read_to_end(&mut data)?;
+    Ok(data)
 }
