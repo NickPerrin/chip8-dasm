@@ -6,3 +6,4 @@ edition = "2018"
 
 [dependencies]
 clap = "2.33.0"
+chip8-rom-to-opcode = "0.1.1"
